@@ -21,3 +21,15 @@ define( 'TTFMAKE_CHILD_VERSION', '1.1.0' );
 /**
  * Add your custom theme functions here.
  */
+
+function enqueue_child_scripts() {
+  wp_enqueue_script(
+    'alc-network-script',
+    get_stylesheet_directory_uri() . '/js/alc-global.js',
+    array( 'jquery' ),
+    false,
+    true
+  );
+}
+
+add_action( 'wp_enqueue_scripts', 'enqueue_child_scripts' );
