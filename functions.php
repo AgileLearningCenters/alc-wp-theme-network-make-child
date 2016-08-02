@@ -33,3 +33,22 @@ function enqueue_child_scripts() {
 }
 
 add_action( 'wp_enqueue_scripts', 'enqueue_child_scripts' );
+
+
+add_filter( 'make_template_content_single' , 'content_type' );
+
+function alc_post_meta($post){
+  $out = array();
+  foreach (get_post_meta($post->ID) as $key => $value) {
+    $out[$key] = (is_array($value)) ? implode(' ', $value) : $value ;
+  }
+  return $out;
+}
+
+function content_type($default) {
+  $post_type = get_post_type();
+  if ( $post_type == 'alc') {
+    return $post_type;
+  }
+  return $default;
+}
